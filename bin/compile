@@ -41,6 +41,10 @@ else
   status "Resolved node version: $node_version"
 fi
 
+if [ "$SSH_KEY" != "" ]; then
+  source $bp_dir/bin/ssh
+fi
+
 # Download node from Heroku's S3 mirror of nodejs.org/dist
 status "Downloading and installing node"
 node_url="http://s3pository.heroku.com/node/v$node_version/node-v$node_version-linux-x64.tar.gz"
