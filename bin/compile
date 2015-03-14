@@ -132,6 +132,22 @@ status "Building runtime environment"
 mkdir -p $build_dir/.profile.d
 echo "export PATH=\"\$HOME/vendor/node/bin:\$HOME/bin:\$HOME/node_modules/.bin:\$PATH\";" > $build_dir/.profile.d/nodejs.sh
 
+# Pull SSH key from config - copied from https://github.com/bwhmather/heroku-buildpack-ssh
+mkdir -p ~/.ssh/
+chmod 700 ~/.ssh/
+
+echo "$SSH_KEY" > ~/.ssh/id_rsa
+chmod 400 ~/.ssh/id_rsa
+
+echo 'StrictHostKeyChecking=no' > ~/.ssh/config
+chmod 600 ~/.ssh/config
+
+mkdir -p "$1/.profile.d"
+cat > "$1/.profile.d/00-clobber-ssh-key.sh" << EOF
+echo 'unsetting ssh deploy key'
+unset -v SSH_KEY
+EOF
+
 # Check and run bower
 (
   if [ -f $build_dir/bower.json ]; then
