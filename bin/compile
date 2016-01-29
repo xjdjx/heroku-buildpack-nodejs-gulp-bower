@@ -83,14 +83,12 @@ fi
 (
   if [ -d "$env_dir" ]; then
     status "Exporting config vars to environment"
-    echo "NODE_ENV:"  $NODE_ENV
-    echo "NPM_CONFIG_PRODUCTION:"  $NPM_CONFIG_PRODUCTION 
     export_env_dir $env_dir
   fi
 
   status "Installing dependencies"
   # Make npm output to STDOUT instead of its default STDERR
-  npm install --userconfig $build_dir/.npmrc --production 2>&1 | indent
+  npm install --userconfig $build_dir/.npmrc 2>&1 | indent
 )
 
 # Persist goodies like node-version in the slug
@@ -173,14 +171,12 @@ EOF
     # get the env vars
     if [ -d "$env_dir" ]; then
       status "Exporting config vars to environment"
-      echo "NODE_ENV:" $NODE_ENV
-      echo "NPM_CONFIG_PRODUCTION:" $NPM_CONFIG_PRODUCTION
       export_env_dir $env_dir
     fi
 
     # Install gulp locally
     npm install gulp
-    echo "-----> Found gulpfile, running gulp heroku:$NODE_ENV task"
+    echo "-----> Found gulpfile, running gulp heroku:$node task"
     $build_dir/node_modules/.bin/gulp heroku:$NODE_ENV
   else
     echo "-----> No gulpfile found"
