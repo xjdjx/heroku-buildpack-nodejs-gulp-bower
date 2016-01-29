@@ -83,8 +83,8 @@ fi
 (
   if [ -d "$env_dir" ]; then
     status "Exporting config vars to environment"
-    echo "NODE_ENV:" > $NODE_ENV
-    echo "NPM_CONFIG_PRODUCTION:" > $NPM_CONFIG_PRODUCTION 
+    echo "NODE_ENV:"  $NODE_ENV
+    echo "NPM_CONFIG_PRODUCTION:"  $NPM_CONFIG_PRODUCTION 
     export_env_dir $env_dir
   fi
 
@@ -173,8 +173,8 @@ EOF
     # get the env vars
     if [ -d "$env_dir" ]; then
       status "Exporting config vars to environment"
-      echo "NODE_ENV:" > $NODE_ENV
-      echo "NPM_CONFIG_PRODUCTION:" > $NPM_CONFIG_PRODUCTION
+      echo "NODE_ENV:" $NODE_ENV
+      echo "NPM_CONFIG_PRODUCTION:" $NPM_CONFIG_PRODUCTION
       export_env_dir $env_dir
     fi
 
